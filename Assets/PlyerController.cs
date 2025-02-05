@@ -14,7 +14,7 @@ public class PlyerController : MonoBehaviour
     private bool isGrounded = false;
     private bool jump = false;
 
-    // public
+    // publicdddddddddddddd
     public float speed = 3;
     public float height = 500;
     public float maxSpeed = 7f;
@@ -103,6 +103,7 @@ public class PlyerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Boundry"))
         {
+            GameManager.instance.DecreaseLives();
             SceneManager.LoadScene(0);
         }
     }
