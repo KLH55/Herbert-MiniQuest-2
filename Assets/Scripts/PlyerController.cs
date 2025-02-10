@@ -13,12 +13,17 @@ public class PlyerController : MonoBehaviour
     private Rigidbody2D body;
     private bool isGrounded = false;
     private bool jump = false;
+    private float fireRate = .3f;
+    private float nextFire = 0f;
 
     // publicdddddddddddddd
     public float speed = 3;
     public float height = 500;
     public float maxSpeed = 7f;
     public float gravMult = 3f;
+    public GameObject fire; // for bullets
+    public Transform firePoint;
+
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +82,18 @@ public class PlyerController : MonoBehaviour
             jump = true;
         // transform.Translate(Vector2.up * height * Time.deltaTime);
         // Debug.Log("Jumping !!!:) ;)");
+    }
+
+    public void OnFire(InputValue movementValue)
+    {
+        if (Time.time >= nextFire)
+        {
+           nextFire = Time.time + fireRate;
+           animator.SetTrigger("isShooting");
+           Instantiate(fire, firePoint.position, firePoint.rotation);
+        }
+        
+
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
