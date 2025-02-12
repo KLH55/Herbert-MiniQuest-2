@@ -29,12 +29,21 @@ public class DragonController : MonoBehaviour
         transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x - 1 * direction, transform.position.y), Time.deltaTime);
 
         RaycastHit2D headhit = Physics2D.Raycast(transform.position, Vector2.up, 1f);
-        if (hit.collider != null)
+        if (headhit.collider != null)
         {
-            if (hit.collider.gameObject.CompareTag("player"))
+            if (headhit.collider.gameObject.CompareTag("player"))
             {
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Hit");
+        if (collision.gameObject.CompareTag("fire"))
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -15,6 +15,8 @@ public class PlyerController : MonoBehaviour
     private bool jump = false;
     private float fireRate = .3f;
     private float nextFire = 0f;
+    private bool facingRight = true;
+    private AudioSource audioSource;
 
     // publicdddddddddddddd
     public float speed = 3;
@@ -31,6 +33,7 @@ public class PlyerController : MonoBehaviour
         animator = GetComponent<Animator>(); // animation
         sprite_r = GetComponent<SpriteRenderer>(); // sprite flip
         body = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,10 +48,18 @@ public class PlyerController : MonoBehaviour
             // transform.Translate(Vector2.left * speed * Time.deltaTime); // vector is (-1,0)
             body.AddForce(Vector2.left * speed);
 
-            if (movementVector.x < 0) // walking left
-                sprite_r.flipX = true;
-            else if (movementVector.x > 0) // walking right
-                sprite_r.flipX = false;
+        if (movementVector.x < 0 && facingRight) // walking left
+        {
+            // sprite_r.flipX = true;
+            Flip();
+            facingRight = false;
+        }
+        else if (movementVector.x > 0 && !facingRight) // walking right
+        {
+            // sprite_r.flipX = false;
+            Flip();
+            facingRight = true;
+        }
 
         if (jump)
         {
@@ -88,12 +99,11 @@ public class PlyerController : MonoBehaviour
     {
         if (Time.time >= nextFire)
         {
-           nextFire = Time.time + fireRate;
-           animator.SetTrigger("isShooting");
-           Instantiate(fire, firePoint.position, firePoint.rotation);
+            nextFire = Time.time + fireRate;
+            animator.SetTrigger("isShooting");
+            Instantiate(fire, firePoint.position, facingRight ? firePoint.rotation : Quaternion.Euler(0, 180, 0));
+            audioSource.Play();
         }
-        
-
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -123,5 +133,20 @@ public class PlyerController : MonoBehaviour
             GameManager.instance.DecreaseLives();
             SceneManager.LoadScene(0);
         }
+    }
+    public Vector2 GetDirection()
+    {
+        if (facingRight)
+            return Vector2.right;
+        else
+            return Vector2.left;
+    }
+
+    void Flip()
+    {
+        Vector3 theScale = transform.localScale;
+        theScale.x = theScale.x * -1;
+        transform.localScale = theScale;
+
     }
 }
