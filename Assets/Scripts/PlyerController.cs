@@ -14,7 +14,7 @@ public class PlyerController : MonoBehaviour
     private bool isGrounded = false;
     private bool jump = false;
     private float fireRate = .3f;
-    private float nextFire = 0f;
+    private float nextFire = .5f;
     private bool facingRight = true;
     private AudioSource audioSource;
 
@@ -135,6 +135,12 @@ public class PlyerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Boundry"))
+        {
+            GameManager.instance.DecreaseLives();
+            SceneManager.LoadScene(0);
+        }
+
+        if (collision.gameObject.CompareTag("enemy"))
         {
             GameManager.instance.DecreaseLives();
             SceneManager.LoadScene(0);
