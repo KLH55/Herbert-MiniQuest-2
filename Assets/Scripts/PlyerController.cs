@@ -18,7 +18,7 @@ public class PlyerController : MonoBehaviour
     private bool facingRight = true;
     private AudioSource audioSource;
 
-    // publicdddddddddddddd
+    // public
     public float speed = 3;
     public float height = 500;
     public float maxSpeed = 7f;
@@ -113,13 +113,19 @@ public class PlyerController : MonoBehaviour
             isGrounded = true;
             Debug.Log("Touching Ground");
         }
+
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            GameManager.instance.DecreaseLives();
+            SceneManager.LoadScene(0);
+        }
     }
 
     IEnumerator LerpJump()
     {
-        float desied = transform.position.y + 3;
+        float desired = transform.position.y + 3;
 
-        while (transform.position.y < desied)
+        while (transform.position.y < desired)
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + .5f);
             yield return new WaitForSeconds(.05f);
