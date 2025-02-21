@@ -7,14 +7,11 @@ public class MovingPlatform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(MovePlatform());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator MovePlatform()
     {
-        
+
     }
-
-
 }

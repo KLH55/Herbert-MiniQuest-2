@@ -9,6 +9,7 @@ TagManager:
   - fire
   - enemy
   - player
+  - platform
   layers:
   - Default
   - TransparentFX
