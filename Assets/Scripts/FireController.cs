@@ -12,7 +12,7 @@ public class FireController : MonoBehaviour
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("player");
-        direction = player.GetComponent<PlyerController>().GetDirection();
+        direction = player.GetComponent<PlayerController>().GetDirection();
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         // rb.AddForce(Vector2.right * force);
         rb.velocity = force * direction;

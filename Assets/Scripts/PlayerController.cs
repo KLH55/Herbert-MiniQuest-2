@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class PlyerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // private
     private Vector2 movementVector;
@@ -25,6 +25,7 @@ public class PlyerController : MonoBehaviour
     public float gravMult = 3f;
     public GameObject fire; // for bullets
     public Transform firePoint;
+    public GameObject winZone;
 
 
     // Start is called before the first frame update
@@ -145,6 +146,12 @@ public class PlyerController : MonoBehaviour
             GameManager.instance.DecreaseLives();
             SceneManager.LoadScene(0);
         }
+
+        if (collision.gameObject.CompareTag("win"))
+        {
+            SceneManager.LoadScene(2);
+        }
+
     }
     public Vector2 GetDirection()
     {

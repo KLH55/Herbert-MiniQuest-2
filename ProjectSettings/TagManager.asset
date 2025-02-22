@@ -10,6 +10,7 @@ TagManager:
   - enemy
   - player
   - platform
+  - win
   layers:
   - Default
   - TransparentFX
