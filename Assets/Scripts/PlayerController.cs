@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     public float gravMult = 3f;
     public GameObject fire; // for bullets
     public Transform firePoint;
-    public GameObject winZone;
 
 
     // Start is called before the first frame update
@@ -122,16 +121,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator LerpJump()
-    {
-        float desired = transform.position.y + 3;
+    // IEnumerator LerpJump()
+    // {
+    //     float desired = transform.position.y + 3;
 
-        while (transform.position.y < desired)
-        {
-            transform.position = new Vector2(transform.position.x, transform.position.y + .5f);
-            yield return new WaitForSeconds(.05f);
-        }
-    }
+    //     while (transform.position.y < desired)
+    //     {
+    //         transform.position = new Vector2(transform.position.x, transform.position.y + .5f);
+    //         yield return new WaitForSeconds(.05f);
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -145,11 +144,6 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.instance.DecreaseLives();
             SceneManager.LoadScene(0);
-        }
-
-        if (collision.gameObject.CompareTag("win"))
-        {
-            SceneManager.LoadScene(2);
         }
 
     }
